@@ -1,27 +1,22 @@
-Day 28 of my DSA Journey 🚀
-Solved: Balanced Binary Tree (LeetCode #110)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def h(cur):
+            if not cur:
+                return 0
+            return 1 + max(h(cur.left),h(cur.right))
 
-Today’s problem was a great tree recursion challenge that focused on checking structural balance in a binary tree.
-
-🔹 Key Learning:
-A binary tree is balanced if:
-
-* The height difference between left and right subtrees is at most 1
-* This condition must hold true for every node
-
-🔹 Approach:
-Used a recursive approach:
-
-* Created a helper function to calculate the height of a subtree
-* For each node, compared the heights of left and right subtrees
-* Recursively checked whether all subtrees were balanced
-
-🔹 Complexity:
-Time: O(n²) *(since height is recalculated for many nodes)*
-Space: O(n) *(due to recursion stack in worst case)*
-
-💡 This problem reinforced how a correct brute-force recursive solution is a solid first step, with room to optimize later into an O(n) bottom-up approach.
-
-Consistency is the key. Showing up every day, one problem at a time.
-
-#DSA #LeetCode #Python #CodingJourney #1000DaysOfCode #SoftwareEngineering #ProblemSolving
+        def helper(cur):
+            if not cur:
+                return True
+            left = h(cur.left)
+            right = h(cur.right)
+            if abs(left-right) > 1:
+                return False
+            return helper(cur.left) and helper(cur.right)
+        return helper(root)
